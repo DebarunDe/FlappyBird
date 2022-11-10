@@ -1,5 +1,5 @@
 Flow report for FlappyBird
-Tue Nov 08 15:59:48 2022
+Thu Nov 10 12:38:38 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Tue Nov 08 15:59:48 2022       ;
+; Flow Status                        ; Successful - Thu Nov 10 12:38:38 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; FlappyBird                                  ;
 ; Top-level Entity Name              ; FlappyBird                                  ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 3,491 / 49,760 ( 7 % )                      ;
-;     Total combinational functions  ; 3,179 / 49,760 ( 6 % )                      ;
+; Total logic elements               ; 3,529 / 49,760 ( 7 % )                      ;
+;     Total combinational functions  ; 3,194 / 49,760 ( 6 % )                      ;
 ;     Dedicated logic registers      ; 2,023 / 49,760 ( 4 % )                      ;
 ; Total registers                    ; 2092                                        ;
 ; Total pins                         ; 83 / 360 ( 23 % )                           ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/08/2022 15:54:54 ;
+; Start date & time ; 11/10/2022 12:32:27 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; FlappyBird          ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+------------------------------------------------------------------+---------------+----------------+----------------+
 ; Assignment Name                     ; Value                                                            ; Default Value ; Entity Name    ; Section Id     ;
 +-------------------------------------+------------------------------------------------------------------+---------------+----------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 167304649778095.166794449203844                                  ; --            ; --             ; --             ;
+; COMPILER_SIGNATURE_ID               ; 167304649778095.166810514516864                                  ; --            ; --             ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                                ; --            ; --             ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                                  ; <None>        ; --             ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                             ; --            ; --             ; eda_simulation ;
@@ -108,12 +108,12 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:02:05     ; 1.0                     ; 4955 MB             ; 00:02:16                           ;
-; Fitter               ; 00:01:13     ; 1.2                     ; 5760 MB             ; 00:01:12                           ;
-; Assembler            ; 00:00:18     ; 1.0                     ; 4700 MB             ; 00:00:15                           ;
-; Timing Analyzer      ; 00:00:38     ; 1.2                     ; 4870 MB             ; 00:00:36                           ;
-; EDA Netlist Writer   ; 00:00:15     ; 1.0                     ; 4716 MB             ; 00:00:12                           ;
-; Total                ; 00:04:29     ; --                      ; --                  ; 00:04:31                           ;
+; Analysis & Synthesis ; 00:02:58     ; 1.0                     ; 4939 MB             ; 00:02:40                           ;
+; Fitter               ; 00:01:40     ; 1.2                     ; 5678 MB             ; 00:01:36                           ;
+; Assembler            ; 00:00:19     ; 1.0                     ; 4699 MB             ; 00:00:15                           ;
+; Timing Analyzer      ; 00:00:29     ; 1.5                     ; 4870 MB             ; 00:00:30                           ;
+; EDA Netlist Writer   ; 00:00:12     ; 1.0                     ; 4716 MB             ; 00:00:10                           ;
+; Total                ; 00:05:38     ; --                      ; --                  ; 00:05:11                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

@@ -5,6 +5,7 @@ output [9:0]  BirdX, BirdY, BirdS
 );
 
     logic [9:0] Bird_X_Pos, Bird_X_Motion, Bird_Y_Pos, Bird_Y_Motion, Bird_Size, Bird_Dy_Motion, Gravity;
+	 logic [8:0] div;
 	 
     parameter [9:0] Bird_X_Center= 160;  // Left-Center position on the X axis
     parameter [9:0] Bird_Y_Center= 240;  // Center position on the Y axis
@@ -19,7 +20,12 @@ output [9:0]  BirdX, BirdY, BirdS
 	 //assign Bird_Dy_Motion = 0; // set motion of y direction of bird to be non-constant
 	 assign Gravity = 1; //assign gravity like constant to make the bird feel like it has weight
 	 
-	 always_ff @ (posedge Reset or posedge frame_clk )
+//	 always_ff @ (posedge frame_clk )
+//	 begin
+//	 div <= div + 1;
+//	 end
+
+	 always_ff @ (posedge Reset or posedge frame_clk ) 
     begin: Move_Bird
         if (Reset)  // Asynchronous Reset
         begin 
@@ -41,33 +47,20 @@ output [9:0]  BirdX, BirdY, BirdS
 					  
 				 else
 				 begin
-					  Bird_Dy_Motion <= Bird_Dy_Motion + Gravity; // add gravity to bird to make it move down eventually
-					  Bird_Y_Motion <= Bird_Y_Motion - Bird_Dy_Motion;  // Bird is somewhere in the middle, don't bounce, just keep moving
+					  //Bird_Dy_Motion <= Bird_Dy_Motion + Gravity; // add gravity to bird to make it move down eventually
+					  //Bird_Y_Motion <= Bird_Y_Motion - Bird_Dy_Motion;  // Bird is somewhere in the middle, don't bounce, just keep moving
 				 case (keycode)
 					8'h44 : begin //Spacebar hit 
 
 								Bird_X_Motion <= 0; 
 								Bird_Y_Motion<= 2;
 							  end
-					        
-					/* 8'h07 : begin
-								
-					        Ball_X_Motion <= 1;//D
-							  Ball_Y_Motion <= 0;
+				   8'h22 : begin //Spacebar hit 
+
+								Bird_X_Motion <= 0; 
+								Bird_Y_Motion<= -2;
 							  end
-
-							  
-					8'h16 : begin
-
-					        Ball_Y_Motion <= 1;//S
-							  Ball_X_Motion <= 0;
-							 end
-							  
-					8'h1A : begin
-					        Ball_Y_Motion <= -1;//W
-							  Ball_X_Motion <= 0;
-							 end	  
-					default: ; */ //Can incorporate keycodes to reset/start/move screens
+					default: ; //Can incorporate keycodes to reset/start/move screens
 			   endcase
 				
 				end
@@ -82,7 +75,21 @@ output [9:0]  BirdX, BirdY, BirdS
 		end  
     end
        
-    assign BirdX = Bird_X_Pos;
+    
+	 
+//	 always_ff @ (frame_clk) begin
+//	 if(keycode == 8'h44 && Bird_Y_Motion[9:0] << 5)begin 
+//	
+//		Bird_Y_Motion <= Bird_Y_Motion + 10; 
+//	 end
+//	 
+//	 if(Bird_Y_Motion >> 5)begin 
+//	 Bird_Y_Motion <= Bird_Y_Motion - 2; 
+//	 end
+//	 
+//	 end 
+//	 
+	 assign BirdX = Bird_X_Pos;
    
     assign BirdY = Bird_Y_Pos;
    

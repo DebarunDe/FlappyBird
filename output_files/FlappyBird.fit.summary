@@ -1,12 +1,12 @@
-Fitter Status : Successful - Tue Nov 08 15:58:24 2022
+Fitter Status : Successful - Thu Nov 10 12:37:22 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : FlappyBird
 Top-level Entity Name : FlappyBird
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 3,491 / 49,760 ( 7 % )
-    Total combinational functions : 3,179 / 49,760 ( 6 % )
+Total logic elements : 3,529 / 49,760 ( 7 % )
+    Total combinational functions : 3,194 / 49,760 ( 6 % )
     Dedicated logic registers : 2,023 / 49,760 ( 4 % )
 Total registers : 2092
 Total pins : 83 / 360 ( 23 % )
