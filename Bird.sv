@@ -16,9 +16,9 @@ output [9:0]  BirdX, BirdY, BirdS
     parameter [9:0] Bird_X_Step= 1;      // Step size on the X axis
     parameter [9:0] Bird_Y_Step= 1;      // Step size on the Y axis
 
-	 assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
+	 assign Bird_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
 	 //assign Bird_Dy_Motion = 0; // set motion of y direction of bird to be non-constant
-	 assign Gravity = 1; //assign gravity like constant to make the bird feel like it has weight
+	 //assign Gravity = 1; //assign gravity like constant to make the bird feel like it has weight
 	 
 //	 always_ff @ (posedge frame_clk )
 //	 begin
@@ -27,12 +27,14 @@ output [9:0]  BirdX, BirdY, BirdS
 
 	 always_ff @ (posedge Reset or posedge frame_clk ) 
     begin: Move_Bird
-        if (Reset)  // Asynchronous Reset
-        begin 
+        if (Reset)  // Asynchronous Reset 
+		  begin 
             Bird_Y_Motion <= 10'd0; //Ball_Y_Step;
 				Bird_X_Motion <= 10'd0; //Ball_X_Step;
+				Bird_Dy_Motion <= 10'd0;
 				Bird_Y_Pos <= Bird_Y_Center;
 				Bird_X_Pos <= Bird_X_Center;
+				Gravity <= 10'd0;
         end
 		  
         else 
@@ -44,25 +46,22 @@ output [9:0]  BirdX, BirdY, BirdS
 					  //End game condition here
 					  
 				  // Bird should never reach right or left edge of the screen, no checks needed
-					  
-				 else
-				 begin
 					  //Bird_Dy_Motion <= Bird_Dy_Motion + Gravity; // add gravity to bird to make it move down eventually
 					  //Bird_Y_Motion <= Bird_Y_Motion - Bird_Dy_Motion;  // Bird is somewhere in the middle, don't bounce, just keep moving
-				 case (keycode)
-					8'h44 : begin //Spacebar hit 
-
+				 else if (keycode == 8'h44) //maybe 2c
+					 begin //Spacebar hit 
+								Bird_Dy_Motion <= 4;;
 								Bird_X_Motion <= 0; 
-								Bird_Y_Motion<= 2;
-							  end
-				   8'h22 : begin //Spacebar hit 
-
-								Bird_X_Motion <= 0; 
-								Bird_Y_Motion<= -2;
-							  end
-					default: ; //Can incorporate keycodes to reset/start/move screens
-			   endcase
-				
+								Bird_Y_Motion <= Bird_Dy_Motion;
+								Gravity <= 0;
+				   end
+				 else if (keycode != 8'h44)
+					begin
+							Gravity <= Gravity + 1;
+							Bird_Dy_Motion = Bird_Y_Motion - Gravity;
+							Bird_X_Motion <= 0;
+							Bird_Y_Motion <= Bird_Dy_Motion;
+					end
 				end
 				
 				
@@ -73,7 +72,7 @@ output [9:0]  BirdX, BirdY, BirdS
 			
 			
 		end  
-    end
+
        
     
 	 

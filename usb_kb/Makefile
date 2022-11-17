@@ -142,6 +142,7 @@ ACDS_VERSION := 18.1
 ELF := usb_kb.elf
 
 # Paths to C, C++, and assembly source files.
+C_SRCS += main.c
 C_SRCS += usb_kb/HID.c
 C_SRCS += usb_kb/MAX3421E.c
 C_SRCS += usb_kb/transfer.c

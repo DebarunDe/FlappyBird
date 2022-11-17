@@ -1,16 +1,16 @@
-Analysis & Synthesis Status : Successful - Thu Nov 10 12:35:38 2022
+Analysis & Synthesis Status : Successful - Wed Nov 16 14:49:28 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : FlappyBird
 Top-level Entity Name : FlappyBird
 Family : MAX 10
-Total logic elements : 3,840
-    Total combinational functions : 3,186
-    Dedicated logic registers : 2,066
-Total registers : 2066
-Total pins : 83
+Total logic elements : 4,013
+    Total combinational functions : 3,358
+    Dedicated logic registers : 2,123
+Total registers : 2123
+Total pins : 131
 Total virtual pins : 0
 Total memory bits : 11,392
-Embedded Multiplier 9-bit elements : 0
+Embedded Multiplier 9-bit elements : 4
 Total PLLs : 1
 UFM blocks : 0
 ADC blocks : 0

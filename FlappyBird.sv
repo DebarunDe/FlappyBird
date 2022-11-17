@@ -20,21 +20,78 @@ module FlappyBird (
       output   [ 3: 0]   VGA_G,
       output   [ 3: 0]   VGA_B,
       inout    [15: 0]   ARDUINO_IO,
-      inout              ARDUINO_RESET_N 
+      inout              ARDUINO_RESET_N,
+		output   [ 7: 0]   HEX0,
+      output   [ 7: 0]   HEX1,
+      output   [ 7: 0]   HEX2,
+      output   [ 7: 0]   HEX3,
+      output   [ 7: 0]   HEX4,
+      output   [ 7: 0]   HEX5
+
 
 
 );
 
-//Local Logic declaration (SoC)
-logic SPI0_CS_N, SPI0_SCLK, SPI0_MISO, SPI0_MOSI, USB_GPX, USB_IRQ, USB_RST;
-logic [1:0] signs, hundreds;
-logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
+logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 
-//Local Logic declaration (Bird)
-logic Reset_h;
-logic [7:0] keycode;
-logic [9:0] birdx, birdy, birdsize;
+//=======================================================
+//  REG/WIRE declarations
+//=======================================================
+	logic SPI0_CS_N, SPI0_SCLK, SPI0_MISO, SPI0_MOSI, USB_GPX, USB_IRQ, USB_RST;
+	logic [3:0] hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
+	logic [1:0] signs;
+	logic [1:0] hundreds;
+	logic [9:0] dx, dy, birdx, birdy, birdsize;
+	logic [7:0] Red, Blue, Green;
+	logic [7:0] keycode;
+
+//=======================================================
+//  Structural coding
+//=======================================================
+	assign ARDUINO_IO[10] = SPI0_CS_N;
+	assign ARDUINO_IO[13] = SPI0_SCLK;
+	assign ARDUINO_IO[11] = SPI0_MOSI;
+	assign ARDUINO_IO[12] = 1'bZ;
+	assign SPI0_MISO = ARDUINO_IO[12];
+	
+	assign ARDUINO_IO[9] = 1'bZ; 
+	assign USB_IRQ = ARDUINO_IO[9];
+		
+	//Assignments specific to Circuits At Home UHS_20
+	assign ARDUINO_RESET_N = USB_RST;
+	assign ARDUINO_IO[7] = USB_RST;//USB reset 
+	assign ARDUINO_IO[8] = 1'bZ; //this is GPX (set to input)
+	assign USB_GPX = 1'b0;//GPX is not needed for standard USB host - set to 0 to prevent interrupt
+	
+	//Assign uSD CS to '1' to prevent uSD card from interfering with USB Host (if uSD card is plugged in)
+	assign ARDUINO_IO[6] = 1'b1;
+	
+	//HEX drivers to convert numbers to HEX output
+	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
+	assign HEX4[7] = 1'b1;
+	
+	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
+	assign HEX3[7] = 1'b1;
+	
+	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
+	assign HEX1[7] = 1'b1;
+	
+	HexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
+	assign HEX0[7] = 1'b1;
+	
+	//fill in the hundreds digit as well as the negative sign
+	assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
+	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
+	
+	
+	//Assign one button to reset
+	assign {Reset_h}=~ (KEY[0]);
+
+	//Our A/D converter is only 12 bit
+	assign VGA_R = Red[7:4];
+	assign VGA_B = Blue[7:4];
+	assign VGA_G = Green[7:4];
 
 
 
@@ -85,7 +142,29 @@ Bird u1 (
 		.BirdS(birdsize)
 );
 
+vga_controller vga_controller(
+		.Clk(MAX10_CLK1_50),
+		.Reset(Reset_h),
+		.pixel_clk(VGA_CLK), 
+		.vs(VGA_VS),
+		.hs(VGA_HS),
+		.blank(blank),
+		.sync(sync),
+		.DrawX(dx),
+		.DrawY(dy)
+		
+);
 
+color_mapper color_mapper(
+		.BirdX(birdx), 
+		.BirdY(birdy), 
+		.DrawX(dx), 
+		.DrawY(dy), 
+		.Bird_size(birdsize),
+		.Red(Red), //VGA_R
+		.Green(Green), //VGA_G
+		.Blue(Blue) //VGA_B
+);
 
 	
 
