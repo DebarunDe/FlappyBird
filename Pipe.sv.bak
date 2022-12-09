@@ -1,0 +1,52 @@
+module Pipe (
+		input Reset, frame_clk,
+		output [9:0]  PipeX, PipeY, PipeS
+);
+
+    logic [9:0] Pipe_X_Pos, Pipe_X_Motion, Pipe_Y_Pos;
+	 logic [8:0] div;
+	 
+    parameter [9:0] Pipe_X_Center= 200;  // Left-Center position on the X axis
+    parameter [9:0] Pipe_Y_Center= 240;  // Center position on the Y axis
+    parameter [9:0] Pipe_X_Min= 0;       // Leftmost point on the X axis
+    parameter [9:0] Pipe_X_Max= 639;     // Rightmost point on the X axis
+    parameter [9:0] Pipe_Y_Min= 0;       // Topmost point on the Y axis
+    parameter [9:0] Pipe_Y_Max= 479;     // Bottommost point on the Y axis
+    parameter [9:0] Pipe_X_Step= 1;      // Step size on the X axis
+    parameter [9:0] Pipe_Y_Step= 1;      // Step size on the Y axis
+
+	 assign Pipe_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
+
+	 always_ff @ (posedge Reset or posedge frame_clk ) 
+    begin: Move_Pipe
+        if (Reset)  // Asynchronous Reset
+        begin 
+            
+				Pipe_X_Motion <= 1; //Pipe_X_Step;
+				Pipe_Y_Pos <= Pipe_Y_Center;
+				Pipe_X_Pos <= Pipe_X_Center;
+        end
+		  
+        else 
+        begin 
+				
+				 
+				 Pipe_Y_Pos <= (Pipe_Y_Pos);  // Update Pipe position
+				 Pipe_X_Pos <= (Pipe_X_Pos - Pipe_X_Motion);
+			
+			
+			
+		end  
+    end
+       
+    
+	 
+
+	 assign PipeX = Pipe_X_Pos;
+   
+    assign PipeY = Pipe_Y_Pos;
+   
+    assign PipeS = Pipe_Size;
+    
+
+endmodule
